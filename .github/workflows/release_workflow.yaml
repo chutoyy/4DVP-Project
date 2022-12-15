@@ -46,5 +46,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: chutoyy/4dvp-project:${GITHUB_REF##*/}
+          tags: chutoyy/4dvp-project:${{env.RELEASE_VERSION}}
       

@@ -1,0 +1,50 @@
+name: "Release workflow"
+on:
+  push:
+    tags:
+      - '*'
+jobs:
+  goreleaser:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{matrix.os}}
+    steps:
+      - name: "récupérer le contenu"
+        uses: actions/checkout@v3
+      - name: "Set up go"
+        uses: actions/setup-go@v3
+        with:
+          go-version: latest
+      - name: "Run go releaser"
+        uses: goreleaser/goreleaser-action@v4
+        with:
+          version: latest
+          args: release --rm-dist
+          workdir: "/"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+      - name: "Upload artifact"
+        uses: actions/upload-artifact@v3
+        with:
+          name: release-report
+  build_and_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "récupérer le contenu"
+        uses: actions/checkout
+      - name: "setup docker buildx"
+        uses: docker/setup-buildx-action@v2
+      - name: "authentification"
+        uses: docker/login-action@v2
+        with: 
+          username: ${{ secrets.DOCKERHUB_USERNAME}}
+          password: ${{ secrets.DOCKERHUB_TOKEN}}
+      - name: "Get release version"
+        run: echo "RELEASE_VERSION=${GITHUB_REF##*/}" >> $GITHUB_ENV
+      - name: "Build and push"
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: chutoyy/4dvp-project:${GITHUB_REF##*/}
+      

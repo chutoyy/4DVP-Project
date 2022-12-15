@@ -1,0 +1,14 @@
+version: 2
+updates:
+  - packages-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  - packages-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  - packages-ecosystem: "go-mod"
+    directory: "/"
+    schedule:
+      interval: "daily"

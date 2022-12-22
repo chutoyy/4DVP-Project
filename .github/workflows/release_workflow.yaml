@@ -32,7 +32,7 @@ jobs:
   build_and_publish:
     runs-on: ubuntu-latest
     steps:
-      - name: "récupérer le contenu"
+      - name: "récupérer le contenus"
         uses: actions/checkout@v3
       - name: "setup docker buildx"
         uses: docker/setup-buildx-action@v2

@@ -27,8 +27,8 @@ jobs:
       - name: "Upload artifact"
         uses: actions/upload-artifact@v3
         with:
-          name: release-report
-          path: 4DVP-Project/dist/*
+          name: report.html
+          path: 4DVP-Project/report.html
   build_and_publish:
     runs-on: ubuntu-latest
     steps:

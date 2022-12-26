@@ -48,4 +48,4 @@ jobs:
        env:
           VALIDATE_ALL_CODEBASE: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-       if: github.event_name == "pull_request"
+       if: github.event_name === "pull_request"

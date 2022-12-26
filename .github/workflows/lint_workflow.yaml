@@ -38,3 +38,13 @@ jobs:
         with:
           sarif_file: hadolint.sarif
           wait-for-processing: true
+  super-linter:
+    runs-on: ubuntu-latest
+    steps:
+     - name: "récupérer le contenu"
+       uses: actions/checkout@v3
+     - name: "execute superlinter"
+       uses: github/super-linter/slim@v4
+       env:
+          VALIDATE_ALL_CODEBASE: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}

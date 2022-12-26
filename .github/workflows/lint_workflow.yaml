@@ -1,0 +1,52 @@
+name: "Lint workflow"
+on: 
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    container:
+      image: returntocorp/semgrep:1.1.0
+    steps:
+      - name: "récupérer le contenu"
+        uses: actions/checkout@v3
+      - name: "execute sempgrep"
+        run: semgrep ci --sarif --output=semgrep.sarif
+        env:
+          SEMGREP_RULES: p/default
+      - name: "code QL"
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: semgrep.sarif
+  hadolint_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "récupérer le contenu"
+        uses: actions/checkout@v3
+      - name: "execute hadolint"
+        uses: hadolint/hadolint-action@v2.1.0
+        with:
+          dockerfile: ./Dockerfile
+          format: sarif
+          output-file: hadolint.sarif
+      - name: "code QL"
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: hadolint.sarif
+          wait-for-processing: true
+  super-linter:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+     - name: "récupérer le contenu"
+       uses: actions/checkout@v3
+     - name: "executer le superlinter"
+       uses: github/super-linter/slim@v4
+       env:
+          VALIDATE_ALL_CODEBASE: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+       

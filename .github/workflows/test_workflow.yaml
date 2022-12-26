@@ -1,0 +1,21 @@
+name: "Test Workflow"
+on: 
+  push:
+
+jobs:
+  unit_test:
+    strategy:
+      matrix:
+        version: ['1.17', '1.18', '1.19']
+    runs-on: ubuntu-latest
+    steps:
+      - name: "récupérer le contenu"
+        uses: actions/checkout@v3
+      - name: "set up go"
+        uses: actions/setup-go@v3
+        with:
+          go-version: ${{ matrix.version }}
+          cache: go
+      - name: "test"
+        run: go test ./...
+          

@@ -44,7 +44,7 @@ jobs:
     steps:
      - name: "récupérer le contenu"
        uses: actions/checkout@v3
-     - name: "executer le superlinter"
+     - name: "executer l superlinter"
        uses: github/super-linter/slim@v4
        env:
           VALIDATE_ALL_CODEBASE: true

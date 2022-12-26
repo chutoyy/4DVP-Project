@@ -39,6 +39,7 @@ jobs:
           sarif_file: hadolint.sarif
           wait-for-processing: true
   super-linter:
+    if: github.event_name != "pull_request"
     runs-on: ubuntu-latest
     steps:
      - name: "récupérer le contenu"
@@ -48,4 +49,4 @@ jobs:
        env:
           VALIDATE_ALL_CODEBASE: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-       if: github.event_name != "pull_request"
+       

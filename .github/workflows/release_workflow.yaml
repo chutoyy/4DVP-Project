@@ -48,9 +48,3 @@ jobs:
         with:
           push: false
           tags: chutoyy/4dvp-project:${{env.RELEASE_VERSION}}
-      - uses: aquasecurity/trivy-action@0.8.0
-        with:
-          image-ref: chutoyy/4dvp-project:${{env.RELEASE_VERSION}}
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-          severity: 'CRITICAL,HIGH'

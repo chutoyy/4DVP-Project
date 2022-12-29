@@ -29,6 +29,8 @@ jobs:
         with:
           name: report.html
           path: 4DVP-Project/report.html
+      - run: ls 
+        
   build_and_publish:
     runs-on: ubuntu-latest
     steps:

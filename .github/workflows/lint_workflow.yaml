@@ -24,7 +24,7 @@ jobs:
   hadolint_job:
     runs-on: ubuntu-latest
     steps:
-      - name: "récupérer le contenu"
+      - name: "récupérer le contenu "
         uses: actions/checkout@v3
       - name: "execute hadolint"
         uses: hadolint/hadolint-action@v2.1.0

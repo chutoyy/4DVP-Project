@@ -24,14 +24,11 @@ jobs:
           args: release --rm-dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-      - name: "Create file"
-        run: |
-          touch report.html
       - name: "Upload artifact"
         uses: actions/upload-artifact@v3
         with:
-          name: report.html
-          path: 4DVP-Project/report.html
+          name: myapp
+          path: ./dist/*
   build_and_publish:
     runs-on: ubuntu-latest
     steps:

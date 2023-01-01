@@ -9,7 +9,7 @@ jobs:
         version: ['1.17', '1.18', '1.19']
     runs-on: ubuntu-latest
     steps:
-      - name: "récupérer le contenu"
+      - name: "Checkout code"
         uses: actions/checkout@v3
       - name: "set up go"
         uses: actions/setup-go@v3

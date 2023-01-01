@@ -9,8 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: returntocorp/semgrep:1.1.0
+    if: (github.actor != 'dependabot[bot]')
     steps:
-      - name: "récupérer le contenu"
+      - name: "Checkout code"
         uses: actions/checkout@v3
       - name: "execute sempgrep"
         run: semgrep ci --sarif --output=semgrep.sarif
@@ -24,7 +25,7 @@ jobs:
   hadolint_job:
     runs-on: ubuntu-latest
     steps:
-      - name: "récupérer le contenu"
+      - name: "Checkout code"
         uses: actions/checkout@v3
       - name: "execute hadolint"
         uses: hadolint/hadolint-action@v2.1.0
@@ -39,10 +40,10 @@ jobs:
           sarif_file: hadolint.sarif
           wait-for-processing: true
   super-linter:
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && (github.actor != 'dependabot[bot]')
     runs-on: ubuntu-latest
     steps:
-     - name: "récupérer le contenu"
+     - name: "Checkout code"
        uses: actions/checkout@v3
      - name: "execute superlinter"
        uses: github/super-linter/slim@v4
